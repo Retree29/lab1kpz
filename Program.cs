@@ -17,6 +17,12 @@ public sealed class TaskService
 
     public void AddTask(string title)
     {
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            _notifier.Notify("Неможливо додати задачу без назви.");
+            return;
+        }
+
         var newTask = new ProjectTask(_tasks.Count + 1, title);
         _tasks.Add(newTask);
         _notifier.Notify($"Додано задачу: {title}");
