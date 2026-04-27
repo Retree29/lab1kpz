@@ -1,4 +1,4 @@
-var taskService = new TaskService(new ConsoleNotifier());
+var taskService = new TaskService(new ConsoleNotifier(), new ConsoleTaskPrinter());
 
 taskService.AddTask("Оформити public репозиторій");
 taskService.AddTask("Створити PROGRAMMING_PRINCIPLES.md");
@@ -8,11 +8,13 @@ taskService.ShowTasks();
 public sealed class TaskService
 {
     private readonly INotifier _notifier;
+    private readonly ITaskPrinter _taskPrinter;
     private readonly List<ProjectTask> _tasks = [];
 
-    public TaskService(INotifier notifier)
+    public TaskService(INotifier notifier, ITaskPrinter taskPrinter)
     {
         _notifier = notifier;
+        _taskPrinter = taskPrinter;
     }
 
     public void AddTask(string title)
@@ -43,12 +45,7 @@ public sealed class TaskService
 
     public void ShowTasks()
     {
-        Console.WriteLine();
-        Console.WriteLine("Поточні задачі:");
-        foreach (var task in _tasks)
-        {
-            Console.WriteLine($"{task.Id}. {task.Title} | Стан: {task.Status}");
-        }
+        _taskPrinter.PrintTasks(_tasks);
     }
 }
 
@@ -76,11 +73,29 @@ public interface INotifier
     void Notify(string message);
 }
 
+public interface ITaskPrinter
+{
+    void PrintTasks(IEnumerable<ProjectTask> tasks);
+}
+
 public sealed class ConsoleNotifier : INotifier
 {
     public void Notify(string message)
     {
         Console.WriteLine($"[info] {message}");
+    }
+}
+
+public sealed class ConsoleTaskPrinter : ITaskPrinter
+{
+    public void PrintTasks(IEnumerable<ProjectTask> tasks)
+    {
+        Console.WriteLine();
+        Console.WriteLine("Поточні задачі:");
+        foreach (var task in tasks)
+        {
+            Console.WriteLine($"{task.Id}. {task.Title} | Стан: {task.Status}");
+        }
     }
 }
 
