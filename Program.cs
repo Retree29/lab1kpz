@@ -57,6 +57,16 @@ public sealed class ProjectTask
 
     public ProjectTask(int id, string title)
     {
+        if (id <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(id), "Id задачі повинен бути більшим за 0.");
+        }
+
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            throw new ArgumentException("Назва задачі не може бути порожньою.", nameof(title));
+        }
+
         Id = id;
         Title = title;
         Status = TaskStatus.Open;
