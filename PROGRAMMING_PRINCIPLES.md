@@ -23,11 +23,3 @@
 ## 4) DRY
 - Уніфіковані повідомлення через `INotifier.Notify`:
   https://github.com/Retree29/lab1kpz/blob/main/Program.cs#L81-L97
-
-## Issues та Pull Requests (виконано)
-- Issue #1: https://github.com/Retree29/lab1kpz/issues/1
-  - PR #4 (Closes #1): https://github.com/Retree29/lab1kpz/pull/4
-- Issue #2: https://github.com/Retree29/lab1kpz/issues/2
-  - PR #5 (Closes #2): https://github.com/Retree29/lab1kpz/pull/5
-- Issue #3: https://github.com/Retree29/lab1kpz/issues/3
-  - PR #6 (Closes #3): https://github.com/Retree29/lab1kpz/pull/6
